@@ -4,16 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Questionnaire;
 use App\User;
-use Illuminate\Support\Facades\Auth;
 
-class QuestionnairesController extends Controller {
+class QuestionnairesController extends Controller
+{
 
-    public function index(User $currentUser) {
-//        $currentUser = $currentUser->find(Auth::id());
-//        dd($currentUser->name);
-//        $questionnaires = $currentUser->questionnaires();
-//        dd($questionnaires);
-//        return view('questionnaires.index', compact('questionnaires') );
-        return view('questionnaires.index');
+    public function index(User $user)
+    {
+        $currentUser    = $user->currentUser();
+        $questionnaires = $currentUser->questionnaires;
+        return view('questionnaires.index', compact('questionnaires'));
     }
+
+    public function show(Questionnaire $questionnaire)
+    {
+        return view('questionnaires.show');
+    }
+
 }
