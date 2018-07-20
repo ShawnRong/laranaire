@@ -27,10 +27,13 @@
         "sass-loader": "^7.0.3",
         "style-loader": "^0.21.0",
         "vue": "^2.5.7",
+        "vue-form-generator": "^2.2.2",
         "vue-loader": "^15.2.4",
+        "vuedraggable": "^2.16.0",
+        "vuex": "^3.0.1",
         "webpack-cli": "^3.0.8"
     },
     "dependencies": {
-        "webpack": "^4.16.0"
+        "webpack": "^4.16.1"
     }
 }

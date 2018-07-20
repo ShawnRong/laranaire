@@ -2,6 +2,6 @@
 
 @section('content')
     <div class="container">
-        <h1>Questionnaire show blade php</h1>
+        <questionnaire></questionnaire>
     </div>
 @endsection
