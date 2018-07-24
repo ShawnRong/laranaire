@@ -49,6 +49,18 @@ module.exports = {
                     "sass-loader"
                 ]
             },
+             {
+               test: /\.(woff|woff2|eot|ttf|otf|svg|jpg|png)$/,
+               use: [
+                   {
+                     loader: 'file-loader',
+                     options: {
+                       name: '../assets/[name]_[sha512:hash:base64:7].[ext]',
+                       useRelativePath: true
+                     },
+                   }
+               ]
+             }
         ]
     },
     resolve: {

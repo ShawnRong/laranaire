@@ -2,7 +2,7 @@
   <draggable class="list-group" element="ul" v-model="listTools"
       :options="dragOptions" @start="isDragging=true" @end="isDragging=false">
           <li class="list-group-item" v-for="element in listTools"
-              :key="element.order" @click="clickAddToForm(element.field)">
+              :key="element.order" @click="clickAddToForm(element.field)" >
               {{ element.field.name }}
           </li>
   </draggable>

@@ -6,6 +6,7 @@ const tools = [
       label: 'Status',
       model: 'status',
       default: true,
+      edit: false,
     },
   },
   {
@@ -15,6 +16,7 @@ const tools = [
       inputType: 'Date',
       label: 'Date',
       model: 'date',
+      edit: false,
     },
   },
   {
@@ -24,6 +26,7 @@ const tools = [
       inputType: 'File',
       label: 'File',
       model: 'File',
+      edit: false,
     },
   },
   {
@@ -31,6 +34,9 @@ const tools = [
     schema: {
       type: 'h1',
       model: 'Header',
+      value: 'Header',
+      edit: false,
+      hover: false,
     },
   },
   {
@@ -40,6 +46,7 @@ const tools = [
       inputType: 'Hidden',
       label: 'Hidden',
       model: 'Hidden',
+      edit: false,
     },
   },
   {
@@ -47,6 +54,7 @@ const tools = [
     schema: {
       type: 'paragraph',
       model: 'paragraph',
+      edit: false,
     },
   },
   {
@@ -56,6 +64,7 @@ const tools = [
       inputType: 'Number',
       label: 'Number',
       model: 'Number',
+      edit: false,
     },
   },
   {
@@ -67,6 +76,7 @@ const tools = [
       values: [
         {name: '', value:''},
       ],
+      edit: false,
     },
   },
   {
@@ -76,6 +86,7 @@ const tools = [
       label: 'Select',
       model: 'Select',
       values: [],
+      edit: false,
     },
   },
   {
@@ -85,6 +96,7 @@ const tools = [
       inputType: 'text',
       label: 'Input',
       model: 'Input',
+      edit: false,
     },
   },
   {
@@ -93,6 +105,7 @@ const tools = [
       type: 'textArea',
       label: 'TextArea',
       model: 'TextArea',
+      edit: false,
     },
   },
 ];

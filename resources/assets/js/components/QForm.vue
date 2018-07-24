@@ -2,22 +2,28 @@
   <div class="bg-white">
     <draggable element="ul" v-model="formFieldList" :options="dragOptions"
         class="list-group">
-      <li class="list-group-item" v-for="element in formFieldList"
-          :key="element" v-html="parseField(element)">
+      <li class="list-group-item field-edit" v-for="(element, key) in
+      formFieldList"
+          :key="key">
+          <component :is="element.name"
+              :schema="element.schema" :fieldIndex="key"></component>
       </li>
     </draggable>
   </div>
 </template>
 <script>
 import draggable from 'vuedraggable';
+import Header from './FormTool/Header.vue';
 
 export default {
   components: {
-    draggable
+    draggable,
+    Header
   },
   data() {
     return {
-      editable: true
+      editable: true,
+      hover:false,
     }
   },
   computed: {
@@ -46,11 +52,10 @@ export default {
       };
     }
   },
-  methods: {
-    parseField(element) {
-      console.log(element);
-      return `<h1>{element}</h1>`;
-    }
-  }
 }
 </script>
+<style>
+    .field-edit {
+        position: relative;
+    }
+</style>
