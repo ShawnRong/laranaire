@@ -1,26 +1,23 @@
 const tools = [
   {
-    name: 'CheckBox Group',
+    name: 'CheckBox',
     schema: {
       type: 'checkbox',
       label: 'Status',
-      model: 'status',
-      default: true,
       edit: false,
     },
   },
   {
-    name: 'Date Field',
+    name: 'DateField',
     schema: {
       type: 'input',
       inputType: 'Date',
       label: 'Date',
-      model: 'date',
       edit: false,
     },
   },
   {
-    name: 'File Upload',
+    name: 'FileUpload',
     schema: {
       type: 'input',
       inputType: 'File',
@@ -40,7 +37,7 @@ const tools = [
     },
   },
   {
-    name: 'Hidden Input',
+    name: 'HiddenInput',
     schema: {
       type: 'input',
       inputType: 'Hidden',
@@ -53,7 +50,7 @@ const tools = [
     name: 'Paragraph',
     schema: {
       type: 'paragraph',
-      model: 'paragraph',
+      value: 'paragraph',
       edit: false,
     },
   },
@@ -67,14 +64,15 @@ const tools = [
       edit: false,
     },
   },
+
   {
-    name: 'Radio Group',
+    name: 'RadioGroup',
     schema: {
       type: 'radios',
       label: 'Radios',
-      model: 'radios',
+      name: 'Radios',
       values: [
-        {name: '', value:''},
+        { key: 'default', value:'default'},
       ],
       edit: false,
     },
@@ -84,13 +82,14 @@ const tools = [
     schema: {
       type: 'select',
       label: 'Select',
-      model: 'Select',
-      values: [],
+      values: [
+          { key: 'default', value: 'default'},
+      ],
       edit: false,
     },
   },
   {
-    name: 'Text Field',
+    name: 'TextField',
     schema: {
       type: 'input',
       inputType: 'text',
@@ -100,7 +99,7 @@ const tools = [
     },
   },
   {
-    name: 'Text Area',
+    name: 'TextArea',
     schema: {
       type: 'textArea',
       label: 'TextArea',

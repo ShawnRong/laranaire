@@ -1,4 +1,3 @@
-
 <template>
     <div>
         <h1 id="header-tool" v-if="!editStatus">{{ fieldValue }}</h1>

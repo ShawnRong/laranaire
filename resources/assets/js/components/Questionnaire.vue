@@ -1,9 +1,9 @@
 <template>
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-8">
             <QForm />
         </div>
-        <div class="col-md-4 offset-md-1">
+        <div class="col-md-4">
             <QFromTool />
         </div>
     </div>
