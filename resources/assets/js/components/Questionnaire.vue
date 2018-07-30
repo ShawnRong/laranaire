@@ -14,7 +14,7 @@ import QForm from './QForm.vue';
 export default {
     components: {
         QFromTool,
-        QForm
+        QForm,
     },
 }
 </script>

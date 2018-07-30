@@ -7,7 +7,8 @@
                     <button class="btn btn-success">Preview</button>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-primary">Save</button>
+                    <button class="btn btn-primary" @click="saveData">Save
+                    </button>
                 </div>
             </div>
         </div>
@@ -80,6 +81,19 @@ export default {
       };
     }
   },
+  methods: {
+      saveData() {
+        let formData = {
+            title: 'test title',
+            body: 'test body',
+            creator: 'admin',
+            questions: 'test questions',
+        };
+
+        axios.patch('/questionnaire/8', formData).then(() =>
+            console.log('return'))
+      }
+  }
 }
 </script>
 <style>
