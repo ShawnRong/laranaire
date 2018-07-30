@@ -4,7 +4,8 @@
         <div class="card-header">
             <div class="float-right">
                 <div class="btn-group">
-                    <button class="btn btn-success">Preview</button>
+                    <button class="btn btn-success" @click="preview">Preview
+                    </button>
                 </div>
                 <div class="btn-group">
                     <button class="btn btn-primary" @click="saveData">Save
@@ -92,6 +93,9 @@ export default {
 
         axios.patch('/questionnaire/8', formData).then(() =>
             console.log('return'))
+      },
+      preview() {
+        this.$emit('toggle-preview');
       }
   }
 }
