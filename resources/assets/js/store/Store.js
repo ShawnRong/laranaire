@@ -23,8 +23,10 @@ const store = new Vuex.Store({
     clickAddToForm(state, payload) {
       state.formFieldList.push(payload.field);
     },
-    dragAddToForm(state, payload) {
-      state.formFieldList = _.clone(payload.field);
+    dragAddToForm(state, { field }) {
+      this.state.formFieldList = _.map(field, item => {
+        return item.field ? item.field : item;
+      });
     },
     deleteField(state, { index }) {
       state.formFieldList.splice(index, 1);
