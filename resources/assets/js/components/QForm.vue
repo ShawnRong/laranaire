@@ -20,7 +20,7 @@
       formFieldList"
                     :key="key">
                     <component :is="element.name"
-                        :schema="element.schema" :fieldIndex="key"></component>
+                        :field="element" :fieldIndex="key"></component>
                 </li>
             </draggable>
         </div>
@@ -35,6 +35,7 @@ import Input from './FormTool/Input.vue';
 import Paragraph from './FormTool/Paragraph.vue';
 import RadioGroup from './FormTool/Radio.vue';
 import Select from './FormTool/Select.vue';
+import TextArea from './FormTool/Textarea.vue';
 
 export default {
   components: {
@@ -49,6 +50,7 @@ export default {
     'Paragraph' : Paragraph,
     'RadioGroup' : RadioGroup,
      Select,
+     TextArea,
   },
   data() {
     return {

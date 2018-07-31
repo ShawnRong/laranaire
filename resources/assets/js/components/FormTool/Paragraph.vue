@@ -2,14 +2,14 @@
     <div>
         <div v-if="!editStatus">
             <div class="form-group">
-                <p>{{ fieldValue }}</p>
+                <p>{{ fieldAttribute.schema.value }}</p>
             </div>
         </div>
         <div v-else>
             <div class="form-group">
                 <label>Content:</label>
                 <textarea class="form-control" name="fieldValue"
-                    v-model="fieldValue"></textarea>
+                    v-model="fieldAttribute.schema.value"></textarea>
             </div>
         </div>
         <div class="field-actions">
@@ -25,22 +25,15 @@
 
 <script>
     export default {
-        props: ['schema', 'fieldIndex'],
+        props: ['field', 'fieldIndex'],
+        data() {
+            return {
+                editStatus: false,
+            }
+        },
         computed: {
-            fieldValue: {
-                get() {
-                    return this.schema.value
-                },
-                set(value) {
-                    this.$store.commit({
-                        type: 'inputField',
-                        index: this.fieldIndex,
-                        value: value,
-                    });
-                }
-            },
-            editStatus: function()  {
-                return this.schema.edit
+            fieldAttribute() {
+                return _.cloneDeep(this.field)
             },
         },
         methods: {
@@ -51,15 +44,14 @@
                 });
             },
             editField: function() {
-                this.$store.commit({
-                    type: 'editField',
-                    index: this.fieldIndex,
-                });
+                this.editStatus = !this.editStatus;
             },
             saveField: function() {
+                this.editStatus = !this.editStatus;
                 this.$store.commit({
-                    type: 'saveField',
+                    type: 'persistField',
                     index: this.fieldIndex,
+                    field: this.fieldAttribute,
                 });
             },
         }

@@ -3,17 +3,19 @@
         <div v-if="!editStatus">
             <div class="form-group">
                 <label>
-                    {{ selectName }}
+                    {{ fieldAttribute.schema.label }}
                 </label>
-                <select class="form-control" v-for="select in selectValues">
-                    <option value="select.key">{{ select.value }}</option>
+                <select class="form-control">
+                    <option :value="select.key" v-for="select in
+                fieldAttribute.schema.values">{{ select.value }}</option>
                 </select>
             </div>
         </div>
         <div v-else>
             <div class="form-group">
                 <label>Name:</label>
-                <input class="form-control" type="text" v-model="selectName" />
+                <input class="form-control" type="text"
+                    v-model="fieldAttribute.schema.label" />
             </div>
             <div class="form-group">
                 <div class="form-inline justify-content-between">
@@ -22,16 +24,15 @@
                         @click="addOption"><i
                         class="fas fa-plus-circle" ></i></button>
                 </div>
-                <div class="form-row" v-for="(select, index) in selectValues">
+                <div class="form-row" v-for="(select, index) in
+                fieldAttribute.schema.values">
                     <div class="form-group col-md-5">
                         <input class="form-control" type="text"
-                            placeholder="value" :value="select.key"
-                            @input="updateOptionValue($event, index)"/>
+                            placeholder="key" v-model="select.key" />
                     </div>
                     <div class="form-group col-md-5">
                         <input class="form-control" type="text"
-                            placeholder="label" :value="select.value"
-                            @input="updateOptionLabel($event, index)"/>
+                            placeholder="value" v-model="select.value" />
                     </div>
                     <div class="form-group col-md-1 offset-md-1" v-if="index
                     !== 0">
@@ -55,26 +56,15 @@
 
 <script>
     export default {
-        props: ['schema', 'fieldIndex'],
-        computed: {
-            selectValues: function() {
-                return this.schema.values
-            },
-            selectName: {
-                get() {
-                    return this.schema.label
-                },
-                set(label) {
-                    this.$store.commit({
-                        type: 'inputLabel',
-                        index: this.fieldIndex,
-                        label: label,
-                    });
-                }
-            },
-            editStatus: function()  {
-                return this.schema.edit
-            },
+        props: ['field', 'fieldIndex'],
+        data() {
+            return {
+                editStatus: false,
+                fieldAttribute: {},
+            }
+        },
+        created() {
+            this.fieldAttribute = _.cloneDeep(this.field)
         },
         methods: {
             deleteField: function() {
@@ -84,44 +74,24 @@
                 });
             },
             editField: function() {
-                this.$store.commit({
-                    type: 'editField',
-                    index: this.fieldIndex,
-                });
+                this.editStatus = !this.editStatus;
             },
             saveField: function() {
+                this.editStatus = !this.editStatus;
                 this.$store.commit({
-                    type: 'saveField',
+                    type: 'persistField',
                     index: this.fieldIndex,
+                    field: this.fieldAttribute,
                 });
             },
             addOption: function() {
-                this.$store.commit({
-                    type: 'addOption',
-                    index: this.fieldIndex,
-                });
+                this.fieldAttribute.schema.values.push({ key: '', value: '' })
             },
             deleteOption: function(optionIndex) {
                 this.$store.commit({
                     type: 'deleteOption',
                     index: this.fieldIndex,
                     optionIndex: optionIndex,
-                });
-            },
-            updateOptionValue: function(e, optionIndex) {
-                this.$store.commit({
-                    type: 'updateOptionValue',
-                    index: this.fieldIndex,
-                    optionIndex: optionIndex,
-                    value: e.target.value,
-                });
-            },
-            updateOptionLabel: function(e, optionIndex) {
-                this.$store.commit({
-                    type: 'updateOptionLabel',
-                    index: this.fieldIndex,
-                    optionIndex: optionIndex,
-                    value: e.target.value,
                 });
             },
         }

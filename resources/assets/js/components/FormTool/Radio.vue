@@ -1,18 +1,21 @@
 <template>
     <div>
         <div v-if="!editStatus">
-            <div class="form-check" v-for="radio in radioValues">
+            <div class="form-check" v-for="radio in
+            fieldAttribute.schema.values">
                 <input class="form-check-input" type="radio"
-                    v-model="radioName" :value="radio.value">
-                <label class="form-check-label" :for="schema.name">
-                    {{ radio.key }}
+                    v-model="fieldAttribute.schema.label" :value="radio.key ">
+                <label class="form-check-label"
+                    :for="fieldAttribute.schema.label">
+                    {{ radio.value }}
                 </label>
             </div>
         </div>
         <div v-else>
             <div class="form-group">
                 <label>Name:</label>
-                <input class="form-control" type="text" v-model="radioName" />
+                <input class="form-control" type="text"
+                    v-model="fieldAttribute.schema.label" />
             </div>
             <div class="form-group">
                 <div class="form-inline justify-content-between">
@@ -21,16 +24,15 @@
                         @click="addOption"><i
                         class="fas fa-plus-circle" ></i></button>
                 </div>
-                <div class="form-row" v-for="(radio, index) in radioValues">
+                <div class="form-row" v-for="(radio, index) in
+                fieldAttribute.schema.values">
                     <div class="form-group col-md-5">
                         <input class="form-control" type="text"
-                            placeholder="value" :value="radio.value"
-                            @input="updateOptionValue($event, index)"/>
+                            placeholder="key" v-model="radio.key" />
                     </div>
                     <div class="form-group col-md-5">
                         <input class="form-control" type="text"
-                            placeholder="label" :value="radio.key"
-                            @input="updateOptionLabel($event, index)"/>
+                            placeholder="value" v-model="radio.value" />
                     </div>
                     <div class="form-group col-md-1 offset-md-1" v-if="index
                     !== 0">
@@ -54,26 +56,15 @@
 
 <script>
     export default {
-        props: ['schema', 'fieldIndex'],
-        computed: {
-            radioValues: function() {
-               return this.schema.values
-            },
-            radioName: {
-                get() {
-                    return this.schema.name
-                },
-                set(name) {
-                    this.$store.commit({
-                        type: 'inputName',
-                        index: this.fieldIndex,
-                        name: name,
-                    });
-                }
-            },
-            editStatus: function()  {
-                return this.schema.edit
-            },
+        props: ['field', 'fieldIndex'],
+        data() {
+            return {
+                editStatus: false,
+                fieldAttribute: {},
+            }
+        },
+        created() {
+            this.fieldAttribute = _.cloneDeep(this.field)
         },
         methods: {
             deleteField: function() {
@@ -83,45 +74,21 @@
                 });
             },
             editField: function() {
-                this.$store.commit({
-                    type: 'editField',
-                    index: this.fieldIndex,
-                });
+                this.editStatus = !this.editStatus;
             },
             saveField: function() {
+                this.editStatus = !this.editStatus;
                 this.$store.commit({
-                    type: 'saveField',
+                    type: 'persistField',
                     index: this.fieldIndex,
+                    field: this.fieldAttribute,
                 });
             },
             addOption: function() {
-                this.$store.commit({
-                    type: 'addOption',
-                    index: this.fieldIndex,
-                });
+                this.fieldAttribute.schema.values.push({ key: '', value: '' })
             },
             deleteOption: function(optionIndex) {
-                this.$store.commit({
-                    type: 'deleteOption',
-                    index: this.fieldIndex,
-                    optionIndex: optionIndex,
-                });
-            },
-            updateOptionValue: function(e, optionIndex) {
-                this.$store.commit({
-                    type: 'updateOptionValue',
-                    index: this.fieldIndex,
-                    optionIndex: optionIndex,
-                    value: e.target.value,
-                });
-            },
-            updateOptionLabel: function(e, optionIndex) {
-                this.$store.commit({
-                    type: 'updateOptionLabel',
-                    index: this.fieldIndex,
-                    optionIndex: optionIndex,
-                    value: e.target.value,
-                });
+                this.fieldAttribute.schema.values.splice(optionIndex, 1);
             },
         }
     }

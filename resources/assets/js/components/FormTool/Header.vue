@@ -1,7 +1,10 @@
 <template>
     <div>
-        <h1 id="header-tool" v-if="!editStatus">{{ fieldValue }}</h1>
-        <div v-else><input type="text" class="form-control" v-model="fieldValue"></div>
+        <h1 v-if="!editStatus">{{
+            fieldAttribute.schema.value }}</h1>
+        <div
+            v-else><input type="text" class="form-control"
+            v-model="fieldAttribute.schema.value"></div>
         <div class="field-actions">
             <a class="btn"
                 @click="deleteField()"><i class="fas fa-times"></i></a>
@@ -15,23 +18,16 @@
 
 <script>
   export default {
-    props: ['schema', 'fieldIndex'],
-    computed: {
-      fieldValue: {
-        get() {
-          return this.schema.value
-        },
-        set(value) {
-          this.$store.commit({
-              type: 'inputField',
-              index: this.fieldIndex,
-              value: value,
-          });
+    props: ['field', 'fieldIndex'],
+    data() {
+        return {
+            editStatus: false,
         }
-      },
-      editStatus: function()  {
-        return this.schema.edit
-      },
+    },
+    computed: {
+        fieldAttribute() {
+            return _.cloneDeep(this.field)
+        },
     },
     methods: {
       deleteField: function() {
@@ -41,16 +37,14 @@
           });
       },
       editField: function() {
-          this.$store.commit({
-              type: 'editField',
-              index: this.fieldIndex,
-          });
+          this.editStatus = !this.editStatus;
       },
       saveField: function() {
+          this.editStatus = !this.editStatus;
           this.$store.commit({
-              type: 'saveField',
+              type: 'persistField',
               index: this.fieldIndex,
-              value: this.fieldValue,
+              field: this.fieldAttribute,
           });
       },
     }

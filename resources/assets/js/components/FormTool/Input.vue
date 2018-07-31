@@ -2,14 +2,16 @@
     <div>
         <div v-if="!editStatus">
             <div class="form-group">
-                <label>{{ fieldLabel }}</label>
-                <input :type="fieldType" class="form-control">
+                <label>{{ fieldAttribute.schema.label }}</label>
+                <input :type="fieldAttribute.schema.inputType"
+                    class="form-control">
             </div>
         </div>
         <div v-else>
             <div class="form-group">
                 <label>Label:</label>
-                <input type="text" class="form-control" v-model="fieldLabel">
+                <input type="text" class="form-control"
+                    v-model="fieldAttribute.schema.label">
             </div>
         </div>
         <div class="field-actions">
@@ -25,25 +27,15 @@
 
 <script>
     export default {
-        props: ['schema', 'fieldIndex'],
+        props: ['field', 'fieldIndex'],
+        data() {
+            return {
+                editStatus: false,
+            }
+        },
         computed: {
-            fieldLabel: {
-                get() {
-                    return this.schema.label
-                },
-                set(label) {
-                    this.$store.commit({
-                        type: 'inputLabel',
-                        index: this.fieldIndex,
-                        label: label,
-                    });
-                }
-            },
-            fieldType: function() {
-                return this.schema.inputType
-            },
-            editStatus: function()  {
-                return this.schema.edit
+            fieldAttribute() {
+                return _.cloneDeep(this.field)
             },
         },
         methods: {
@@ -54,15 +46,14 @@
                 });
             },
             editField: function() {
-                this.$store.commit({
-                    type: 'editField',
-                    index: this.fieldIndex,
-                });
+                this.editStatus = !this.editStatus;
             },
             saveField: function() {
+                this.editStatus = !this.editStatus;
                 this.$store.commit({
-                    type: 'saveField',
+                    type: 'persistField',
                     index: this.fieldIndex,
+                    field: this.fieldAttribute,
                 });
             },
         }

@@ -4,7 +4,6 @@ const tools = [
     schema: {
       type: 'checkbox',
       label: 'Status',
-      edit: false,
     },
   },
   {
@@ -13,7 +12,6 @@ const tools = [
       type: 'input',
       inputType: 'Date',
       label: 'Date',
-      edit: false,
     },
   },
   {
@@ -22,18 +20,13 @@ const tools = [
       type: 'input',
       inputType: 'File',
       label: 'File',
-      model: 'File',
-      edit: false,
     },
   },
   {
     name: 'Header',
     schema: {
       type: 'h1',
-      model: 'Header',
       value: 'Header',
-      edit: false,
-      hover: false,
     },
   },
   {
@@ -42,8 +35,6 @@ const tools = [
       type: 'input',
       inputType: 'Hidden',
       label: 'Hidden',
-      model: 'Hidden',
-      edit: false,
     },
   },
   {
@@ -51,7 +42,6 @@ const tools = [
     schema: {
       type: 'paragraph',
       value: 'paragraph',
-      edit: false,
     },
   },
   {
@@ -61,7 +51,6 @@ const tools = [
       inputType: 'Number',
       label: 'Number',
       model: 'Number',
-      edit: false,
     },
   },
 
@@ -74,7 +63,6 @@ const tools = [
       values: [
         { key: 'default', value:'default'},
       ],
-      edit: false,
     },
   },
   {
@@ -85,7 +73,6 @@ const tools = [
       values: [
           { key: 'default', value: 'default'},
       ],
-      edit: false,
     },
   },
   {
@@ -94,8 +81,6 @@ const tools = [
       type: 'input',
       inputType: 'text',
       label: 'Input',
-      model: 'Input',
-      edit: false,
     },
   },
   {
@@ -103,8 +88,7 @@ const tools = [
     schema: {
       type: 'textArea',
       label: 'TextArea',
-      model: 'TextArea',
-      edit: false,
+      value: '',
     },
   },
 ];
