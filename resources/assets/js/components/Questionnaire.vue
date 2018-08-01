@@ -1,18 +1,19 @@
 <template>
     <div class="row">
-        <div class="col-md-8" :class="formPreview? 'test-blur': ''">
+        <div class="col-md-8" >
             <QForm @toggle-preview="togglePreview"/>
         </div>
         <div class="col-md-4" :class="formPreview? 'test-blur': ''">
             <QFromTool />
         </div>
-        <QPreview v-show="formPreview" @close-preview="togglePreview"/>
+        <slideout-panel></slideout-panel>
     </div>
 </template>
 <script>
 import QFromTool from './QFormTools.vue';
 import QForm from './QForm.vue';
 import QPreview from './QFormPreview.vue';
+import { VueSlideoutPanel,vueSlideoutPanelService } from 'vue2-slideout-panel';
 
 export default {
     data() {
@@ -24,16 +25,14 @@ export default {
         QFromTool,
         QForm,
         QPreview,
+        'slideout-panel': VueSlideoutPanel,
     },
     methods: {
         togglePreview() {
-            this.formPreview = !this.formPreview;
+            vueSlideoutPanelService.show({
+                component : QPreview,
+            });
         }
     }
 }
 </script>
-<style>
-    .test-blur {
-        filter: blur(1px);
-    }
-</style>

@@ -3,7 +3,8 @@
       :options="dragOptions" @start="isDragging=true" @end="isDragging=false">
           <li class="list-group-item" v-for="element in listTools"
               :key="element.order" @click="clickAddToForm(element.field)" >
-              {{ element.field.name }}
+              <span class="fa tool-icon" :class="element.field.icon"></span>{{
+                  element.field.name }}
           </li>
   </draggable>
 </template>
@@ -47,3 +48,8 @@ export default {
   }
 };
 </script>
+<style>
+    .tool-icon {
+        margin: 0 5px;
+    }
+</style>

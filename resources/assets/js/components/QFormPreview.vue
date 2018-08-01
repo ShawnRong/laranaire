@@ -1,22 +1,9 @@
 <template>
-    <div class="container form-preview">
-        <div class="card">
-            <div class="card-header">
-                Form Preview
-                <div class="float-right">
-                    <button type="button" class="close" @click="closePreview">
-                        <span>&times;</span>
-                    </button>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="container" v-html="renderedFormField"></div>
-            </div>
-        </div>
-    </div>
+   <div class="container" v-html="renderedFormField"></div>
 </template>
 <script>
     export default {
+        name: 'QPreview',
         computed: {
             renderedFormField() {
                 let formField = this.$store.state.formFieldList;
@@ -28,7 +15,7 @@
                             break;
                         case 'CheckBox':
                             content += `
-                            <div class="form-group">
+                            <div class="form-group form-check">
                                 <input type="checkbox"
                                class="form-check-input">
                                <label class="form-check-label">${
@@ -81,16 +68,16 @@
                                 content += `
                                 <div class="form-check">
                                   <input class="form-check-input"
-                                  type="radio" value="${radio.key}">
-                                  <label class="form-check-label">${
-                                    radio.value }</label>
+                                  type="radio" value="${radio.key}" name="${field.schema.label}">
+                                  <label class="form-check-label" for="${field.schema.label}">
+                                        ${ radio.value }</label>
                                 </div>
                                 `
                             });
                             content += `</div>`
                             break;
                         case 'Select':
-                            content += `<select class="custom-select">`;
+                            content += `<select class="form-control">`;
                             field.schema.values.forEach(select => {
                                 content += `
                                   <option value="${select.key}">${select.value}</option>
@@ -116,20 +103,11 @@
                             break;
                     }
                 });
+                content +=
+                    '<button type="submit" class="btn btn-primary">Submit</button>';
                 content += '</form>';
                 return content
             }
         },
-        methods: {
-            closePreview() {
-                this.$emit('close-preview')
-            }
-        },
     }
 </script>
-<style>
-    .form-preview {
-        position: fixed;
-        z-index: 3;
-    }
-</style>

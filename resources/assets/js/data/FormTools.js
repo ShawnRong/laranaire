@@ -1,6 +1,7 @@
 const tools = [
   {
     name: 'CheckBox',
+    icon: 'fa-check-square',
     schema: {
       type: 'checkbox',
       label: 'Status',
@@ -8,6 +9,7 @@ const tools = [
   },
   {
     name: 'DateField',
+    icon: 'fa-calendar',
     schema: {
       type: 'input',
       inputType: 'Date',
@@ -16,6 +18,7 @@ const tools = [
   },
   {
     name: 'FileUpload',
+    icon: 'fa-file',
     schema: {
       type: 'input',
       inputType: 'File',
@@ -24,6 +27,7 @@ const tools = [
   },
   {
     name: 'Header',
+    icon: 'fa-heading',
     schema: {
       type: 'h1',
       value: 'Header',
@@ -31,6 +35,7 @@ const tools = [
   },
   {
     name: 'HiddenInput',
+    icon: 'fa-eye-slash',
     schema: {
       type: 'input',
       inputType: 'Hidden',
@@ -39,6 +44,7 @@ const tools = [
   },
   {
     name: 'Paragraph',
+    icon: 'fa-paragraph',
     schema: {
       type: 'paragraph',
       value: 'paragraph',
@@ -46,6 +52,7 @@ const tools = [
   },
   {
     name: 'Number',
+    icon: 'fa-hashtag',
     schema: {
       type: 'input',
       inputType: 'Number',
@@ -56,6 +63,7 @@ const tools = [
 
   {
     name: 'RadioGroup',
+    icon: 'fa-list',
     schema: {
       type: 'radios',
       label: 'Radios',
@@ -67,6 +75,7 @@ const tools = [
   },
   {
     name: 'Select',
+    icon: 'fa-check',
     schema: {
       type: 'select',
       label: 'Select',
@@ -77,6 +86,7 @@ const tools = [
   },
   {
     name: 'TextField',
+    icon: 'fa-angle-right',
     schema: {
       type: 'input',
       inputType: 'text',
@@ -85,6 +95,7 @@ const tools = [
   },
   {
     name: 'TextArea',
+    icon: 'fa-comment-alt',
     schema: {
       type: 'textArea',
       label: 'TextArea',

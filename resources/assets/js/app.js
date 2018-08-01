@@ -17,9 +17,9 @@ import questionnaire from './components/Questionnaire.vue';
  */
 
 const app = new Vue({
-    el: '#app',
-    store,
-    components: {
-        'questionnaire': questionnaire
-    }
+  el: '#app',
+  store,
+  components: {
+    'questionnaire': questionnaire,
+  },
 });
