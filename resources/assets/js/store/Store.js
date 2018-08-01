@@ -6,6 +6,8 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
+    formTitle: '',
+    formDescription: '',
     formFieldList: [
       {
         name: 'Header',
@@ -33,6 +35,34 @@ const store = new Vuex.Store({
     },
     persistField(state, { index, field }) {
       Vue.set(state.formFieldList, index, field);
+    },
+    updateTitle(state, { title }) {
+      state.formTitle = title;
+    },
+    updateDescription(state, { description }) {
+      state.formDescription = description;
+    },
+    createFieldSuccess(state) {
+      window.location.href = '/questionnaire';
+      console.log('post success');
+    },
+    createFieldError(state) {
+      console.log('create error');
+    }
+  },
+  actions: {
+    createFormField(context) {
+      let formData = {
+        title: context.state.formTitle,
+        body: context.state.formDescription,
+        creator: window.App.user.id,
+        questions: context.state.formFieldList,
+      };
+      axios.post('/questionnaire', formData).then(() => {
+        context.commit('createFieldSuccess');
+      }).catch((error) => {
+        context.commit('createFieldError', error);
+      });
     },
   },
 });

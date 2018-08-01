@@ -2,6 +2,19 @@
   <div class="bg-white">
     <div class="card">
         <div class="card-header">
+            <form>
+                <div class="form-group">
+                    <label for="formTitle">Title:</label>
+                    <input type="text" id="FormTitle" class="form-control"
+                        v-model="formTitle">
+                </div>
+                <div class="form-group">
+                    <label for="formDescription">Description:</label>
+                    <textarea name="formDescription" class="form-control"
+                        id="formDescription"
+                        rows="2" v-model="formDescription"></textarea>
+                </div>
+            </form>
             <div class="float-right">
                 <div class="btn-group">
                     <button class="btn btn-success" @click="preview">Preview
@@ -82,19 +95,33 @@ export default {
           disabled: !this.editable,
           ghostClass: 'bg-danger',
       };
-    }
+    },
+    formTitle: {
+      get() {
+        return this.$store.state.formTitle;
+      },
+      set(title) {
+        this.$store.commit({
+          type: 'updateTitle',
+          title: title,
+        });
+      }
+    },
+    formDescription: {
+      get() {
+        return this.$store.state.formDescription;
+      },
+      set(description) {
+        this.$store.commit({
+          type: 'updateDescription',
+          description: description,
+        });
+      }
+    },
   },
   methods: {
       saveData() {
-        let formData = {
-            title: 'test title',
-            body: 'test body',
-            creator: 'admin',
-            questions: 'test questions',
-        };
-
-        axios.patch('/questionnaire/8', formData).then(() =>
-            console.log('return'))
+        this.$store.dispatch('createFormField');
       },
       preview() {
         this.$emit('toggle-preview');

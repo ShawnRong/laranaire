@@ -9,6 +9,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <script>
+        window.App = {!! json_encode([
+           'csrfToken' => csrf_token(),
+           'user' => Auth::user(),
+           'signedIn' => Auth()->check(),
+        ]) !!}
+    </script>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -48,6 +55,9 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @else
+                            <li class="nav-item">
+                                <a href="{{ route('questionnaire.create') }}" class="nav-link"><i class="fa fa-plus"></i></a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -72,6 +82,7 @@
         </nav>
 
         <main class="py-4">
+            <flash message="{{ session('flash') }}"></flash>
             @yield('content')
         </main>
     </div>

@@ -1,9 +1,9 @@
 <template>
     <div class="row">
         <div class="col-md-8" >
-            <QForm @toggle-preview="togglePreview"/>
+            <QForm @toggle-preview="togglePreview" />
         </div>
-        <div class="col-md-4" :class="formPreview? 'test-blur': ''">
+        <div class="col-md-4">
             <QFromTool />
         </div>
         <slideout-panel></slideout-panel>

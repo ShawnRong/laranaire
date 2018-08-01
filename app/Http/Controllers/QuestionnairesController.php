@@ -25,8 +25,14 @@ class QuestionnairesController extends Controller
         return view('questionnaires.show');
     }
 
+    public function create()
+    {
+        return view('questionnaires.create');
+    }
+
     public function store(QuestionnaireRequest $request, Questionnaire $questionnaire)
     {
+        dd($request->all());
         $questionnaire->fill($request->all());
         $questionnaire->creator = $this->user()->id;
         $questionnaire->save();

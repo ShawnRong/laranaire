@@ -9,6 +9,7 @@ import './bootstrap';
 import Vue from 'vue';
 import store from './store/Store';
 import questionnaire from './components/Questionnaire.vue';
+import Flash from './components/Flash.vue';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,10 +17,17 @@ import questionnaire from './components/Questionnaire.vue';
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+window.events = new Vue();
+window.flash = function(message, level='success') {
+  window.events.$emit('flash', { message , level });
+};
+
 const app = new Vue({
   el: '#app',
   store,
   components: {
     'questionnaire': questionnaire,
+    'flash': Flash,
   },
 });
+
