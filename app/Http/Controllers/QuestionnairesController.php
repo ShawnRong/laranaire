@@ -37,6 +37,7 @@ class QuestionnairesController extends Controller
         $questionnaire->creator = $request->creator;
         $questionnaire->questions = json_encode($request->questions);
         $questionnaire->excerpt = str_limit($request->body, 10);
+        $questionnaire->identify_id = md5($questionnaire->id);
         $questionnaire->save();
 
         return response(['status' => 'Create successfully'], 201);

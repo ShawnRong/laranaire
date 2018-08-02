@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('questionnaire', 'QuestionnairesController');
+
+Route::get('form/{token}', 'FormGeneratorController@show')->name('form.generate');

@@ -40,6 +40,10 @@ export default {
         togglePreview() {
             vueSlideoutPanelService.show({
                 component : QPreview,
+                props: {
+                    questions: this.$store.state.formFieldList,
+                    fillStatus: false,
+                }
             });
         }
     }

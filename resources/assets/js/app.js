@@ -10,6 +10,7 @@ import Vue from 'vue';
 import store from './store/Store';
 import questionnaire from './components/Questionnaire.vue';
 import Flash from './components/Flash.vue';
+import QForm from './components/QFormPreview.vue';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28,6 +29,7 @@ const app = new Vue({
   components: {
     'questionnaire': questionnaire,
     'flash': Flash,
+    'qform': QForm,
   },
 });
 

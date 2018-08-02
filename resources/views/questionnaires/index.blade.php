@@ -7,6 +7,7 @@
               <tr>
                   <th>#</th>
                   <th>Title</th>
+                  <th>Share Url</th>
                   <th>Operate</th>
               </tr>
             </thead>
@@ -18,6 +19,9 @@
                       <a href="{{ route('questionnaire.show', $questionnaire) }}">
                           {{ $questionnaire->title }}
                       </a>
+                  </td>
+                  <td>
+                        {{ $questionnaire->identify_id }}
                   </td>
                   <td>
                     <a class="btn btn-primary" href="{{ route('questionnaire.show', $questionnaire) }}">Edit</a>
