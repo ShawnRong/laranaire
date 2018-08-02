@@ -21,7 +21,7 @@ class CreateQuestionnairesTable extends Migration
             $table->json('questions')->nullable();
             $table->integer('view_count')->unsigned()->default(0);
             $table->integer('reply_count')->unsigned()->default(0);
-            $table->text('excerpt');
+            $table->text('excerpt')->nullable();
             $table->string('slug')->nullable();
             $table->timestamps();
         });

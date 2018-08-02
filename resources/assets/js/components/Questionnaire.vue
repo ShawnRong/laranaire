@@ -16,9 +16,18 @@ import QPreview from './QFormPreview.vue';
 import { VueSlideoutPanel,vueSlideoutPanelService } from 'vue2-slideout-panel';
 
 export default {
+    props: ['form-data'],
     data() {
         return {
             formPreview: false,
+        }
+    },
+    created() {
+        if(this.formData) {
+            this.$store.commit({
+                type: 'editData',
+                formData: this.formData,
+            })
         }
     },
     components: {

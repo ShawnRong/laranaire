@@ -69,6 +69,12 @@ export default {
     return {
       editable: true,
       hover:false,
+      editStatus: false,
+    }
+  },
+  created() {
+    if(this.$store.state.formId) {
+        this.editStatus = true
     }
   },
   computed: {
@@ -121,7 +127,11 @@ export default {
   },
   methods: {
       saveData() {
-        this.$store.dispatch('createFormField');
+        if(this.editStatus) {
+           this.$store.dispatch('updateFormField');
+        } else {
+           this.$store.dispatch('createFormField');
+        }
       },
       preview() {
         this.$emit('toggle-preview');

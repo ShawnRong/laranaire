@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
+    formId: '',
     formTitle: '',
     formDescription: '',
     formFieldList: [
@@ -35,20 +36,29 @@ const store = new Vuex.Store({
     },
     persistField(state, { index, field }) {
       Vue.set(state.formFieldList, index, field);
-    },
+    }
+    ,
     updateTitle(state, { title }) {
       state.formTitle = title;
     },
     updateDescription(state, { description }) {
       state.formDescription = description;
     },
-    createFieldSuccess(state) {
-      window.location.href = '/questionnaire';
-      console.log('post success');
+    createFieldSuccess(state, response) {
+      if (response.status === 201) {
+        window.location.href = '/questionnaire';
+        flash('Created Success');
+      }
     },
-    createFieldError(state) {
-      console.log('create error');
-    }
+    createFieldError(state, error) {
+      flash(error, 'danger');
+    },
+    editData(state, { formData }) {
+      state.formId = formData.id;
+      state.formTitle = formData.title;
+      state.formDescription = formData.body;
+      state.formFieldList = JSON.parse(formData.questions);
+    },
   },
   actions: {
     createFormField(context) {
@@ -58,11 +68,23 @@ const store = new Vuex.Store({
         creator: window.App.user.id,
         questions: context.state.formFieldList,
       };
-      axios.post('/questionnaire', formData).then(() => {
-        context.commit('createFieldSuccess');
+      axios.post('/questionnaire', formData).then((response) => {
+        context.commit('createFieldSuccess', response);
       }).catch((error) => {
         context.commit('createFieldError', error);
       });
+    },
+    updateFormField(context) {
+        let formData = {
+            title: context.state.formTitle,
+            body: context.state.formDescription,
+            questions: context.state.formFieldList,
+        };
+        axios.patch('/questionnaire/' + context.state.formId, formData).then((response) => {
+            context.commit('createFieldSuccess', response);
+        }).catchy((error) => {
+            context.commit('createFieldError', error);
+        });
     },
   },
 });

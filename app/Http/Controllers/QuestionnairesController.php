@@ -22,7 +22,7 @@ class QuestionnairesController extends Controller
 
     public function show(Questionnaire $questionnaire)
     {
-        return view('questionnaires.show');
+        return view('questionnaires.show', compact('questionnaire'));
     }
 
     public function create()
@@ -32,21 +32,29 @@ class QuestionnairesController extends Controller
 
     public function store(QuestionnaireRequest $request, Questionnaire $questionnaire)
     {
-        dd($request->all());
-        $questionnaire->fill($request->all());
-        $questionnaire->creator = $this->user()->id;
+        $questionnaire->title = $request->title;
+        $questionnaire->body = $request->body;
+        $questionnaire->creator = $request->creator;
+        $questionnaire->questions = json_encode($request->questions);
+        $questionnaire->excerpt = str_limit($request->body, 10);
         $questionnaire->save();
-        return response([], 201);
+
+        return response(['status' => 'Create successfully'], 201);
     }
 
     public function update(QuestionnaireRequest $request, Questionnaire $questionnaire)
     {
-        $questionnaire->update($request->all());
-        return response([], 204);
+        $questionnaire->title = $request->title;
+        $questionnaire->body = $request->body;
+        $questionnaire->questions = json_encode($request->questions);
+        $questionnaire->excerpt = str_limit($request->body, 10);
+        $questionnaire->update();
+        return response(['status' => 'Update successfully'], 201);
     }
 
     public function destroy(Questionnaire $questionnaire)
     {
         $questionnaire->delete();
+        return redirect('/questionnaire')->with('flash', 'Delete Successfully');
     }
 }

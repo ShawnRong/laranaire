@@ -20,8 +20,13 @@
                       </a>
                   </td>
                   <td>
-                    <button type="button" class="btn btn-primary">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <a class="btn btn-primary" href="{{ route('questionnaire.show', $questionnaire) }}">Edit</a>
+                    <a class="btn btn-danger" href="{{ route('questionnaire.destroy', $questionnaire) }}" onclick="event.preventDefault();
+                    document.getElementById('form-delete').submit();">Delete</a>
+                    <form action="{{ route('questionnaire.destroy', $questionnaire) }}" id="form-delete" method="POST" style="display: none;">
+                        @csrf
+                        {{ method_field('DELETE') }}
+                    </form>
                   </td>
                 </tr>
               @endforeach

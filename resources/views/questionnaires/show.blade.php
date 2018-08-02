@@ -2,6 +2,6 @@
 
 @section('content')
     <div class="container">
-        <questionnaire></questionnaire>
+        <questionnaire :form-data="{{ $questionnaire }}"></questionnaire>
     </div>
 @endsection
