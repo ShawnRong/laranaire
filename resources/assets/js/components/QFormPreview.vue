@@ -83,7 +83,7 @@
 </template>
 <script>
     export default {
-        props: ['questions', 'fill-status'],
+        props: ['questions', 'fill-status', 'form-id'],
         data() {
             return {
                 formData: {}
@@ -91,8 +91,20 @@
         },
         methods: {
             submit() {
-                //TODO
-                console.log(this.formData)
+                if(this.fillStatus) {
+                  let token =
+                      window.location.pathname.split('?')[0].split('/').filter(function (i) { return i !== ""}).slice(-1)[0];
+                  let payload = {
+                      'formId': this.formId,
+                      'data': this.formData,
+                  }
+                  axios.post('/form/' + token + '/create',
+                      payload).then(response => {
+                    console.log(response)
+                  }).catch(error => {
+                    console.log(error)
+                  });
+                }
             }
         }
     }

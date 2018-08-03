@@ -2,6 +2,6 @@
 
 @section('content')
     <div class="container">
-        <qform :questions="{{ $questions }}" :fill-status="true"></qform>
+        <qform :questions="{{ $questions }}" :fill-status="true" :form-id="{{ $quesitonnaire_id }}"></qform>
     </div>
 @endsection
