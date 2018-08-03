@@ -11,6 +11,8 @@ import store from './store/Store';
 import questionnaire from './components/Questionnaire.vue';
 import Flash from './components/Flash.vue';
 import QForm from './components/QFormPreview.vue';
+import ViewDetail from './components/Detail/DetailBtnGroup.vue';
+import { VueSlideoutPanel } from 'vue2-slideout-panel';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -30,6 +32,7 @@ const app = new Vue({
     'questionnaire': questionnaire,
     'flash': Flash,
     'qform': QForm,
+    'ViewDetailButton': ViewDetail,
+    'slideout-panel': VueSlideoutPanel,
   },
 });
-

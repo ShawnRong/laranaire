@@ -13,10 +13,12 @@ class QuestionnairesController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-    public function index(User $user)
+    public function index(User $user, Questionnaire $questionnaire)
     {
-        $currentUser    = $user->currentUser();
-        $questionnaires = $currentUser->questionnaires;
+        //TODO: login user auth permission
+//        $currentUser    = $user->currentUser();
+//        $questionnaires = $currentUser->questionnaires;
+        $questionnaires = Questionnaire::all();
         return view('questionnaires.index', compact('questionnaires'));
     }
 
@@ -57,5 +59,11 @@ class QuestionnairesController extends Controller
     {
         $questionnaire->delete();
         return redirect('/questionnaire')->with('flash', 'Delete Successfully');
+    }
+
+    public function detail(Questionnaire $questionnaire)
+    {
+        $answers = $questionnaire->answers;
+        return view('questionnaires.detail', compact('answers'));
     }
 }

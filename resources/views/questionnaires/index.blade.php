@@ -24,7 +24,8 @@
                         {{ $questionnaire->identify_id }}
                   </td>
                   <td>
-                    <a class="btn btn-primary" href="{{ route('questionnaire.show', $questionnaire) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('questionnaire.show', $questionnaire) }}">edit</a>
+                    <a class="btn btn-info" href="{{ route('questionnaire.detail', $questionnaire) }}">Detail</a>
                     <a class="btn btn-danger" href="{{ route('questionnaire.destroy', $questionnaire) }}" onclick="event.preventDefault();
                     document.getElementById('form-delete').submit();">Delete</a>
                     <form action="{{ route('questionnaire.destroy', $questionnaire) }}" id="form-delete" method="POST" style="display: none;">
