@@ -7,6 +7,7 @@
             <tr>
                 <th>#</th>
                 <th>IP</th>
+                <th>Created Time</th>
                 <th></th>
             </tr>
             </thead>
@@ -16,6 +17,9 @@
                     <th>{{ $index + 1 }}</th>
                     <td>
                         {{ $answer->submit_address }}
+                    </td>
+                    <td>
+                       {{ $answer->created_at->diffForHumans() }}
                     </td>
                     <td>
                         <view-detail-button :details="{{ $answer->model }}"></view-detail-button>

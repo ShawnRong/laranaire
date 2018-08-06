@@ -66,4 +66,24 @@ class QuestionnairesController extends Controller
         $answers = $questionnaire->answers;
         return view('questionnaires.detail', compact('answers'));
     }
+
+    public function statics(Questionnaire $questionnaire)
+    {
+        $questions = json_decode($questionnaire->questions);
+        $statics_field_type = array();
+        collect($questions)->each(function ($field, $key) use (&$statics_field_type) {
+            if($field->schema->type == "select" || $field->schema->type == "radios" || $field->schema->type == "checkbox") {
+                array_push($statics_field_type, $key);
+            }
+        });
+        $answers = json_decode($questionnaire->answers[0]->model);
+        /**
+         * TODO: generate statics
+         * Select
+         * Radio
+         * Checkbox
+         */
+        return view('questionnaires.statics');
+    }
+
 }

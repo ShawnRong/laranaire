@@ -22,6 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('questionnaire', 'QuestionnairesController');
 Route::get('questionnaire/{questionnaire}/detail', 'QuestionnairesController@detail')->name('questionnaire.detail');
 
+//TODO: answers statics
+//Route::get('questionnaire/{questionnaire}/statics', 'QuestionnairesController@statics')->name('questionnaire.statics');
+
 Route::get('form/{token}', 'FormGeneratorController@show')->name('form.generate');
 
 Route::post('form/{token}/create', 'FormGeneratorController@store')->name('form.submit');
