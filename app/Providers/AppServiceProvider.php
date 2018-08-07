@@ -13,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //slug observer
+        \App\Questionnaire::observe(\App\Observers\QuestionnaireObserver::class);
     }
 
     /**

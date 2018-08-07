@@ -22,8 +22,13 @@ class QuestionnairesController extends Controller
         return view('questionnaires.index', compact('questionnaires'));
     }
 
-    public function show(Questionnaire $questionnaire)
+    public function show(QuestionnaireRequest $request, Questionnaire $questionnaire)
     {
+        //redirect URL slug
+        if(! empty($questionnaire->slug) && $questionnaire->slug != $request->slug ) {
+            return redirect($questionnaire->linK(), 301);
+        }
+
         return view('questionnaires.show', compact('questionnaire'));
     }
 

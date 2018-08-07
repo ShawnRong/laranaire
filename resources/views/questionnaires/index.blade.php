@@ -16,7 +16,7 @@
                 <tr>
                   <th>{{ $index + 1 }}</th>
                   <td>
-                      <a href="{{ route('questionnaire.show', $questionnaire) }}">
+                      <a href="{{ $questionnaire->link() }}">
                           {{ $questionnaire->title }}
                       </a>
                   </td>

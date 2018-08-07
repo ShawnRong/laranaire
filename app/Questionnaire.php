@@ -17,4 +17,9 @@ class Questionnaire extends Model
     {
         return $this->hasMany(Answer::class);
     }
+
+    public function link($params=[])
+    {
+        return route('questionnaire.show', array_merge([$this->id, $this->slug], $params));
+    }
 }

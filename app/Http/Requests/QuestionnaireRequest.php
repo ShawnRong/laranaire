@@ -40,5 +40,6 @@ class QuestionnaireRequest extends FormRequest
                 ];
                 break;
         }
+        return [];
     }
 }
