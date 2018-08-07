@@ -6,6 +6,10 @@ const tools = [
       type: 'checkbox',
       label: 'Status',
     },
+    validate: {
+      required: false,
+      requiredMsg: '',
+    },
   },
   {
     name: 'DateField',
@@ -15,6 +19,16 @@ const tools = [
       inputType: 'Date',
       label: 'Date',
     },
+    validate: {
+      required: false,
+      requiredMsg: '',
+      minDateEnable: false,
+      minDate: '',
+      minDateMsg: '',
+      maxDateEnable: false,
+      maxDate: '',
+      maxDateMsg: '',
+    },
   },
   {
     name: 'FileUpload',
@@ -23,6 +37,12 @@ const tools = [
       type: 'input',
       inputType: 'File',
       label: 'File',
+    },
+    validate: {
+      required: false,
+      requiredMsg: '',
+      fileExtension: '',
+      fileErrorMsg: '',
     },
   },
   {
@@ -40,6 +60,7 @@ const tools = [
       type: 'input',
       inputType: 'Hidden',
       label: 'Hidden',
+      value: '',
     },
   },
   {
@@ -59,6 +80,14 @@ const tools = [
       label: 'Number',
       model: 'Number',
     },
+    validate: {
+      required: false,
+      requiredMsg: '',
+      min: '',
+      minMsg: '',
+      max: '',
+      maxMsg: '',
+    },
   },
 
   {
@@ -72,6 +101,10 @@ const tools = [
         { key: 'default', value:'default'},
       ],
     },
+    validate: {
+      required: false,
+      requiredMsg: '',
+    },
   },
   {
     name: 'Select',
@@ -83,6 +116,10 @@ const tools = [
           { key: 'default', value: 'default'},
       ],
     },
+    validate: {
+      required: false,
+      requiredMsg: '',
+    },
   },
   {
     name: 'TextField',
@@ -92,6 +129,11 @@ const tools = [
       inputType: 'text',
       label: 'Input',
     },
+    validate: {
+      required: false,
+      requiredMsg: '',
+      maxLength: '',
+    },
   },
   {
     name: 'TextArea',
@@ -100,6 +142,10 @@ const tools = [
       type: 'textArea',
       label: 'TextArea',
       value: '',
+    },
+    validate: {
+      required: false,
+      requiredMsg: '',
     },
   },
 ];

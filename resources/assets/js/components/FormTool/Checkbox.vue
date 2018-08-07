@@ -9,6 +9,20 @@
         </div>
         <div v-else>
             <div class="form-group">
+              <div class="form-check">
+                  <input class="form-check-input" type="checkbox"
+                      v-model="fieldAttribute.validate.required" >
+                  <label class="form-check-label">
+                      required
+                  </label>
+              </div>
+            </div>
+            <div class="form-group">
+                <label>Required Error Message:</label>
+                <input type="text" class="form-control"
+                    v-model="fieldAttribute.validate.requiredMsg">
+            </div>
+            <div class="form-group">
                 <label>Checkbox Label:</label>
                 <input type="text" class="form-control"
                     v-model="fieldAttribute.schema.label">

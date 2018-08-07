@@ -5,8 +5,26 @@
             <textarea class="form-control" rows="3"></textarea>
         </div>
         <div
-            v-else><input type="text" class="form-control"
-            v-model="fieldAttribute.schema.label"></div>
+            v-else>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox"
+                        v-model="fieldAttribute.validate.required" >
+                    <label class="form-check-label">
+                        required
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Required Error Message:</label>
+                <input type="text" class="form-control"
+                    v-model="fieldAttribute.validate.requiredMsg">
+            </div>
+            <div class="form-group">
+                <label>Label</label>
+                <input type="text" class="form-control" v-model="fieldAttribute.schema.label">
+            </div>
+            </div>
         <div class="field-actions">
             <a class="btn"
                 @click="deleteField()"><i class="fas fa-times"></i></a>

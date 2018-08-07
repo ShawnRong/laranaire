@@ -8,28 +8,45 @@
               <template v-if="field.name === 'CheckBox' ">
                   <div class="form-group form-check">
                       <input type="checkbox" class="form-check-input"
-                          v-model="formData[field.name]">
-                      <label class="form-check-label">{{ field.schema.label }}</label>
+                          :class="hasError[field.schema.label] ? 'is-invalid':
+                           ''"
+                          v-model="formData[field.schema.label]">
+                      <label class="form-check-label">{{ field.schema.label }}
+                        <span v-if="field.validate.required">*</span>
+                      </label>
+                      <div class="invalid-feedback">{{
+                          field.validate.requiredMsg }}</div>
                   </div>
               </template>
               <template v-if="field.name === 'DateField'">
                   <div class="form-group">
-                      <label>{{ field.schema.label }}</label>
+                      <label>{{ field.schema.label }}
+                          <span v-if="field.validate.required">*</span>
+                      </label>
                       <input type="date" class="form-control"
-                          v-model="formData[field.name]">
+                          :class="hasError[field.schema.label] ? 'is-invalid':
+                           ''"
+                          v-model="formData[field.schema.label]">
+                      <div class="invalid-feedback">{{
+                          field.validate.requiredMsg }}</div>
                   </div>
               </template>
               <template v-if="field.name === 'FileUpload'">
                   <div class="form-group">
-                      <label>{{ field.schema.label }}</label>
-                      <input type="file" class="form-control" >
+                      <label>{{ field.schema.label }}
+                          <span v-if="field.validate.required">*</span>
+                      </label>
+                      <input type="file" class="form-control"
+                          :class="hasError[field.schema.label] ? 'is-invalid':
+                          ''" >
+                      <div class="invalid-feedback">{{
+                          field.validate.requiredMsg }}</div>
                   </div>
               </template>
                <template v-if="field.name === 'HiddenInput'">
                    <div class="form-group">
-                       <label>{{ field.schema.label }}</label>
                        <input type="hidden" class="form-control"
-                           v-model="formData[field.name]">
+                           v-model="formData[field.value]">
                    </div>
                </template>
                <template v-if="field.name === 'Paragraph'">
@@ -37,9 +54,15 @@
                </template>
                <template v-if="field.name === 'Number'">
                    <div class="form-group">
-                       <label>{{ field.schema.label }}</label>
+                       <label>{{ field.schema.label }}
+                           <span v-if="field.validate.required">*</span>
+                       </label>
                        <input type="number" class="form-control"
-                           v-model="formData[field.name]">
+                           :class="hasError[field.schema.label] ? 'is-invalid':
+                            ''"
+                           v-model="formData[field.schema.label]">
+                       <div class="invalid-feedback">{{
+                           field.validate.requiredMsg }}</div>
                    </div>
                </template>
                <template v-if="field.name === 'RadioGroup'">
@@ -49,31 +72,50 @@
                         <input class="form-check-input"
                             type="radio" :value="radio.key"
                             name="field.schema.label"
-                            v-model="formData[field.name]">
+                            v-model="formData[field.schema.label]">
                         <label class="form-check-label" for="field.schema.label">
                             {{ radio.value }}</label>
                     </div>
                    </div>
                </template>
                <template v-if="field.name === 'Select'">
-                   <select class="form-control" v-model="formData[field.name]">
-                       <option :value="select.key"
-                           v-for="select in field.schema.values">{{
-                           select.value }}</option>
-                   </select>
+                   <div class="form-group">
+                       <select class="form-control"
+                           :class="hasError[field.schema.label] ? 'is-invalid':
+                            ''"
+                           v-model="formData[field.schema.label]">
+                           <option :value="select.key"
+                               v-for="select in field.schema.values">{{
+                               select.value }}</option>
+                       </select>
+                       <div class="invalid-feedback">{{
+                           field.validate.requiredMsg }}</div>
+                   </div>
                </template>
                <template v-if="field.name === 'TextField'">
                    <div class="form-group">
-                       <label>{{ field.schema.label }}</label>
+                       <label>{{ field.schema.label }}
+                           <span v-if="field.validate.required">*</span>
+                       </label>
                        <input type="text" class="form-control"
+                           :class="hasError[field.schema.label] ? 'is-invalid':
+                            ''"
                            v-model="formData[field.schema.label]">
+                       <div class="invalid-feedback">{{
+                           field.validate.requiredMsg }}</div>
                    </div>
                </template>
                <template v-if="field.name === 'TextArea'">
                    <div class="form-group">
-                       <label>{{ field.schema.label }}</label>
+                       <label>{{ field.schema.label }}
+                           <span v-if="field.validate.required">*</span>
+                       </label>
                        <textarea class="form-control" rows="3"
-                           v-model="formData[field.name]"></textarea>
+                           :class="hasError[field.schema.label] ? 'is-invalid':
+                            ''"
+                           v-model="formData[field.schema.label]"></textarea>
+                       <div class="invalid-feedback">{{
+                           field.validate.requiredMsg }}</div>
                    </div>
                </template>
            </template>
@@ -82,11 +124,14 @@
    </div>
 </template>
 <script>
+    import Vue from 'vue';
+
     export default {
         props: ['questions', 'fill-status', 'form-id'],
         data() {
             return {
-                formData: {}
+                formData: {},
+                hasError: {},
             }
         },
         methods: {
@@ -98,14 +143,36 @@
                       'formId': this.formId,
                       'data': this.formData,
                   }
-                  axios.post('/form/' + token + '/create',
-                      payload).then(response => {
-                    console.log(response)
-                  }).catch(error => {
-                    console.log(error)
-                  });
+                  this.validate();
+                  if(this.checkError()) {
+                      axios.post('/form/' + token + '/create',
+                          payload).then(response => {
+                          console.log(response)
+                      }).catch(error => {
+                          console.log(error)
+                      });
+                  }
                 }
+            },
+            validate() {
+                this.questions.forEach((question) => {
+                    if(question.name !== 'HiddenInput' && question.name !==
+                        'Header' && question.name !== 'Paragraph') {
+                        if (question.validate.required &&
+                            !this.formData[question.schema.label]) {
+                            Vue.set(this.hasError, question.schema.label,
+                                true);
+                        } else {
+                            Vue.set(this.hasError, question.schema.label,
+                                false);
+                        }
+                    }
+                })
+            },
+            checkError() {
+                let values = Object.values(this.hasError);
+                return values.every(value => value === false);
             }
-        }
+        },
     }
 </script>
