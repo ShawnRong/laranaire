@@ -10,20 +10,24 @@ class QuestionnairesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth');
     }
 
-    public function index(User $user, Questionnaire $questionnaire)
+    public function index(User $user)
     {
-        //TODO: login user auth permission
-//        $currentUser    = $user->currentUser();
-//        $questionnaires = $currentUser->questionnaires;
-        $questionnaires = Questionnaire::all();
+        $currentUser    = $user->currentUser();
+
+        if($currentUser->is_admin) {
+            $questionnaires = Questionnaire::all();
+        } else {
+            $questionnaires = Questionnaire::where('id', $currentUser->id);
+        }
         return view('questionnaires.index', compact('questionnaires'));
     }
 
     public function show(QuestionnaireRequest $request, Questionnaire $questionnaire)
     {
+        $this->authorize('update', $questionnaire);
         //redirect URL slug
         if(! empty($questionnaire->slug) && $questionnaire->slug != $request->slug ) {
             return redirect($questionnaire->linK(), 301);
@@ -39,6 +43,8 @@ class QuestionnairesController extends Controller
 
     public function store(QuestionnaireRequest $request, Questionnaire $questionnaire)
     {
+        $this->authorize('update', $questionnaire);
+
         $questionnaire->title = $request->title;
         $questionnaire->body = $request->body;
         $questionnaire->creator = $request->creator;
@@ -52,6 +58,8 @@ class QuestionnairesController extends Controller
 
     public function update(QuestionnaireRequest $request, Questionnaire $questionnaire)
     {
+        $this->authorize('update', $questionnaire);
+
         $questionnaire->title = $request->title;
         $questionnaire->body = $request->body;
         $questionnaire->questions = json_encode($request->questions);
@@ -68,6 +76,7 @@ class QuestionnairesController extends Controller
 
     public function detail(Questionnaire $questionnaire)
     {
+        $this->authorize('update', $questionnaire);
         $answers = $questionnaire->answers;
         return view('questionnaires.detail', compact('answers'));
     }
