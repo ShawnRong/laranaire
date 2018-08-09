@@ -40,6 +40,7 @@
               @endforeach
             </tbody>
         </table>
+        {{ $questionnaires->links() }}
     </div>
   <ul>
   </ul>

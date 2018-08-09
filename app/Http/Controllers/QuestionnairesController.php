@@ -18,9 +18,9 @@ class QuestionnairesController extends Controller
         $currentUser    = $user->currentUser();
 
         if($currentUser->is_admin) {
-            $questionnaires = Questionnaire::all();
+            $questionnaires = Questionnaire::latest()->paginate(15);
         } else {
-            $questionnaires = Questionnaire::where('id', $currentUser->id);
+            $questionnaires = Questionnaire::where('id', $currentUser->id)->paginate(15);
         }
         return view('questionnaires.index', compact('questionnaires'));
     }
