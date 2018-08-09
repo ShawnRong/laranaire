@@ -22,4 +22,16 @@ class Questionnaire extends Model
     {
         return route('questionnaire.show', array_merge([$this->id, $this->slug], $params));
     }
+
+    public function submitQuestionnaire()
+    {
+        $this->increment('reply_count');
+        $this->save();
+    }
+
+    public function openQuestionnaire()
+    {
+        $this->increment('view_count');
+        $this->save();
+    }
 }

@@ -12,6 +12,8 @@ class FormGeneratorController extends Controller
         $questionnaire = Questionnaire::where('identify_id', $request->token)->firstOrFail();
         $questions = $questionnaire->questions;
         $quesitonnaire_id = $questionnaire->id;
+        $questionnaire->openQuestionnaire();
+
         return view('form', compact('questions', 'quesitonnaire_id' ));
     }
 
@@ -21,6 +23,9 @@ class FormGeneratorController extends Controller
         $answer->model = json_encode($request->data);
         $answer->submit_address = $request->ip();
         $answer->save();
+
+        $questionnaire = Questionnaire::where('id', $request->formId)->firstOrFail();
+        $questionnaire->submitQuestionnaire();
 
         return response(['status' => 'Submit successfully'], 201);
     }
