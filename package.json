@@ -35,6 +35,7 @@
         "webpack-cli": "^3.0.8"
     },
     "dependencies": {
+        "countup.js": "^1.9.3",
         "webpack": "^4.16.1"
     }
 }
