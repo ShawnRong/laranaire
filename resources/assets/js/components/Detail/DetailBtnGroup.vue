@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button class="btn btn-primary" @click="view" >View</button>
+        <button class="btn btn-primary" @click="view" >查看</button>
     </div>
 </template>
 <script>
@@ -13,7 +13,6 @@
         },
         methods: {
             view() {
-                console.log('123')
                 vueSlideoutPanelService.show({
                     component: QuestionAnswers,
                     props: {

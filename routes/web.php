@@ -20,8 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('questionnaire', 'QuestionnairesController', ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::get('questionnaire/detail/{questionnaire}/{slug?}', 'QuestionnairesController@detail')->name('questionnaire.detail');
 Route::get('questionnaire/{questionnaire}/{slug?}', 'QuestionnairesController@show')->name('questionnaire.show');
-Route::get('questionnaire/{questionnaire}/detail', 'QuestionnairesController@detail')->name('questionnaire.detail');
 
 //TODO: answers statics
 //Route::get('questionnaire/{questionnaire}/statics', 'QuestionnairesController@statics')->name('questionnaire.statics');

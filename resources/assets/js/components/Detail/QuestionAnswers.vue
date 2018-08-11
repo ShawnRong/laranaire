@@ -3,8 +3,8 @@
         <table class="table">
             <thead class="thead-light">
                 <tr>
-                    <th>Questions</th>
-                    <th>Answer</th>
+                    <th>问题</th>
+                    <th>回答</th>
                 </tr>
             </thead>
             <tbody>

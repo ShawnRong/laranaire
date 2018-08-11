@@ -74,9 +74,13 @@ class QuestionnairesController extends Controller
         return redirect('/questionnaire')->with('flash', 'Delete Successfully');
     }
 
-    public function detail(Questionnaire $questionnaire)
+    public function detail(QuestionnaireRequest $request, Questionnaire $questionnaire)
     {
         $this->authorize('update', $questionnaire);
+        //redirect URL slug
+        if(! empty($questionnaire->slug) && $questionnaire->slug != $request->slug ) {
+            return redirect($questionnaire->detailLink(), 301);
+        }
         $answers = $questionnaire->answers;
         return view('questionnaires.detail', compact('answers'));
     }

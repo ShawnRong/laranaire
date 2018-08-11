@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container py-5">
         <table class="table">
             <thead>
             <tr>
                 <th>#</th>
-                <th>IP</th>
-                <th>Created Time</th>
+                <th>IP地址</th>
+                <th>填写时间</th>
                 <th></th>
             </tr>
             </thead>

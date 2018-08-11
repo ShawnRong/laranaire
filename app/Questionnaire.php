@@ -23,6 +23,11 @@ class Questionnaire extends Model
         return route('questionnaire.show', array_merge([$this->id, $this->slug], $params));
     }
 
+    public function detailLink($params=[])
+    {
+        return route('questionnaire.detail', array_merge([$this->id, $this->slug], $params));
+    }
+
     public function submitQuestionnaire()
     {
         $this->increment('reply_count');

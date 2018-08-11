@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
     {
         //slug observer
         \App\Questionnaire::observe(\App\Observers\QuestionnaireObserver::class);
+
+        Carbon::setLocale('zh');
     }
 
     /**

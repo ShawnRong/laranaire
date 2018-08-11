@@ -4,12 +4,12 @@
         <div class="card-header">
             <form>
                 <div class="form-group">
-                    <label for="formTitle">Title:</label>
+                    <label for="formTitle">标题:</label>
                     <input type="text" id="FormTitle" class="form-control"
                         v-model="formTitle">
                 </div>
                 <div class="form-group">
-                    <label for="formDescription">Description:</label>
+                    <label for="formDescription">描述:</label>
                     <textarea name="formDescription" class="form-control"
                         id="formDescription"
                         rows="2" v-model="formDescription"></textarea>
@@ -17,11 +17,11 @@
             </form>
             <div class="float-right">
                 <div class="btn-group">
-                    <button class="btn btn-success" @click="preview">Preview
+                    <button class="btn btn-success" @click="preview">预览
                     </button>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-primary" @click="saveData">Save
+                    <button class="btn btn-primary" @click="saveData">保存
                     </button>
                 </div>
             </div>

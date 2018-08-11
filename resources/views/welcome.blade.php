@@ -7,7 +7,7 @@
             <p class="lead font-weight-normal">
                 帮你收集和管理日常工作中的数据，把几小时的工作缩减至零。
             </p>
-            <a href="{{ route('login') }}" class="btn btn-outline-secondary">开始使用</a>
+            <a href="{{ route('questionnaire.index') }}" class="btn btn-outline-secondary">开始使用</a>
         </div>
         <div class="product-device shadow-sm d-none d-md-block"></div>
         <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
