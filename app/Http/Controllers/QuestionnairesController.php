@@ -82,7 +82,7 @@ class QuestionnairesController extends Controller
             return redirect($questionnaire->detailLink(), 301);
         }
         $answers = $questionnaire->answers;
-        return view('questionnaires.detail', compact('answers'));
+        return view('questionnaires.detail', compact('answers', 'questionnaire'));
     }
 
     public function statics(Questionnaire $questionnaire)
@@ -104,4 +104,7 @@ class QuestionnairesController extends Controller
         return view('questionnaires.statics');
     }
 
+    public function export(QuestionnaireRequest $request) {
+        // TODO export to data
+    }
 }
