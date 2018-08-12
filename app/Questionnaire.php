@@ -2,6 +2,7 @@
 
 namespace App;
 
+use chillerlan\QRCode\QRCode;
 use Illuminate\Database\Eloquent\Model;
 
 class Questionnaire extends Model
@@ -26,6 +27,15 @@ class Questionnaire extends Model
     public function detailLink($params=[])
     {
         return route('questionnaire.detail', array_merge([$this->id, $this->slug], $params));
+    }
+
+    public function formLink()
+    {
+        return  route('form.generate', $this->identify_id);
+    }
+
+    public function formQrcode() {
+        return (new QRCode())->render($this->formLink());
     }
 
     public function submitQuestionnaire()

@@ -15,6 +15,7 @@ import ViewDetail from './components/Detail/DetailBtnGroup.vue';
 import { VueSlideoutPanel } from 'vue2-slideout-panel';
 
 import CountUp from 'countup.js';
+import ClipboardJS from 'clipboard';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -37,7 +38,14 @@ window.onload = function() {
   number1.start();
   let number2 = new CountUp('number2', 0, 22331, 0, 4, options);
   number2.start();
+  $('.link-title').tooltip();
 };
+
+const clipboard = new ClipboardJS('.link-title');
+clipboard.on('success', function(e) {
+  e.trigger.innerHTML = "复制成功";
+  e.clearSelection();
+});
 
 const app = new Vue({
   el: '#app',

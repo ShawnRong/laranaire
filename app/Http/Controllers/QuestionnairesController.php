@@ -22,6 +22,7 @@ class QuestionnairesController extends Controller
         } else {
             $questionnaires = Questionnaire::where('id', $currentUser->id)->paginate(15);
         }
+
         return view('questionnaires.index', compact('questionnaires'));
     }
 

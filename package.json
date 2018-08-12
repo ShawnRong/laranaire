@@ -35,8 +35,10 @@
         "webpack-cli": "^3.0.8"
     },
     "dependencies": {
+        "clipboard": "^2.0.1",
         "countup.js": "^1.9.3",
         "sweetalert2": "^7.26.11",
+        "tooltip.js": "^1.2.0",
         "webpack": "^4.16.1"
     }
 }
