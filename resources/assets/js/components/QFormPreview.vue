@@ -125,6 +125,7 @@
 </template>
 <script>
     import Vue from 'vue';
+    import swal from 'sweetalert2'
 
     export default {
         props: ['questions', 'fill-status', 'form-id'],
@@ -147,9 +148,17 @@
                   if(this.checkError()) {
                       axios.post('/form/' + token + '/create',
                           payload).then(response => {
-                          console.log(response)
+                          swal({
+                              type: 'success',
+                              title: '提交成功',
+                              text: '感谢您参与调查',
+                          })
                       }).catch(error => {
-                          console.log(error)
+                          swal({
+                              type: 'error',
+                              title: '出错了',
+                              text: error,
+                          })
                       });
                   }
                 }
