@@ -4,7 +4,7 @@ clone:
     depth: 50
     tags: true
 
-pipline:    
+pipeline:    
   frontend:
     image: node:8.11.4
     group: laravel
@@ -21,3 +21,44 @@ pipline:
     commands:
       - php -v
       - composer -v
+      - cp .env.example .env
+      - composer install --prefer-dist
+      - php artisan key:generate
+      - php artisan migrate
+      - ./vendor/bin/phpunit
+      - mkdir ../release
+      - tar -czf ../release/release.tar.gz --exclude node_modules --exclude vendor .
+
+  scp:
+    image: appleboy/drone-scp
+    host: 118.24.46.157
+    username: root
+    secrets: [ ssh_key ]
+    target: /var/www/copytest
+    source: ../release/release.tar.gz
+    strip_components: 1
+    when:
+      status: [ success ]
+
+  ssh:
+    image: appleboy/drone-ssh
+    host: 118.24.46.157
+    username: root
+    secrets: [ ssh_key ]
+    script:    
+      - cd /var/www/copytest
+      - tar -xzf release.tar.gz
+    when:
+      status: [ success ]
+
+services:
+  redis:
+    image: redis:latest
+
+  mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=homestead
+      - MYSQL_USER=homestead
+      - MYSQL_PASSWORD=secret
