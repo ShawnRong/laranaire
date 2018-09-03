@@ -1,0 +1,23 @@
+clone:
+  git:
+    image: plugins/git
+    depth: 50
+    tags: true
+
+pipline:    
+  frontend:
+    image: node:8.11.4
+    group: laravel
+    commands:
+      - node -v
+      - npm -v
+      - yarn --version
+      - yarn install
+      - yarn run production
+
+  backend:    
+    image: laradock/workspace:2.2-7.1
+    group: laravel
+    commands:
+      - php -v
+      - composer -v
