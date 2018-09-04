@@ -27,17 +27,19 @@ pipeline:
       - php artisan migrate
       - ./vendor/bin/phpunit
       - mkdir ../release
-      - tar -czf ../release/release.tar.gz --exclude node_modules --exclude vendor .
+      - tar -czf ../release/release.tar.gz --exclude node_modules --exclude vendor . --exclude .env
 
   scp:
     image: appleboy/drone-scp
     host: 118.24.46.157
     username: root
     secrets: [ ssh_key ]
-    target: /var/www/copytest
+    target: /var/www/php_docker_env/www/html/laranaire
     source: ../release/release.tar.gz
     strip_components: 1
+    rm: true
     when:
+      event: tag
       status: [ success ]
 
   ssh:
@@ -46,9 +48,14 @@ pipeline:
     username: root
     secrets: [ ssh_key ]
     script:    
-      - cd /var/www/copytest
+      - cd /var/www/php_docker_env/www/html/laranaire
       - tar -xzf release.tar.gz
+      - rm release.tar.gz
+      - composer install --prefer-dist
+      - php artisan migrate
+      - sudo chmod -R 777 storage bootstrap/cache
     when:
+      event: tag
       status: [ success ]
 
 services:
