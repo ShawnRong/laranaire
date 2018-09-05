@@ -51,9 +51,11 @@ pipeline:
       - cd /var/www/php_docker_env/www/html/laranaire
       - tar -xzf release.tar.gz
       - rm release.tar.gz
-      - composer install --prefer-dist
+      - composer install --optimize-autoloader --no-dev
       - php artisan migrate
       - sudo chmod -R 777 storage bootstrap/cache
+      # - php artisan config:cache
+      # - php artisan route:cache
     when:
       event: tag
       status: [ success ]

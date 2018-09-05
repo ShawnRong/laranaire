@@ -8,7 +8,7 @@ const VueLoader = require('vue-loader');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 //const HtmlWebpackPlugin = require('html-webpack-plugin');
 //minimize js file
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     mode: "production",
@@ -65,7 +65,7 @@ module.exports = {
     },
     resolve: {
         alias: {
-            vue: 'vue/dist/vue.js'
+            vue: 'vue/dist/vue.min.js'
         }
     },
     plugins: [
@@ -79,6 +79,17 @@ module.exports = {
         //   filename: 'index.html',
         //   inject: 'body'
         // })
-        new UglifyJsPlugin(),
+        new UglifyJsPlugin({
+            uglifyOptions: {
+                compress: {
+                    inline: 1,
+                    keep_classnames: true,
+                    keep_fnames: true,
+                },
+                mangle: {
+                    keep_fnames: true,
+                },
+            }
+        }),
     ]
 }
