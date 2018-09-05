@@ -44,7 +44,6 @@ class QuestionnairesController extends Controller
 
     public function store(QuestionnaireRequest $request, Questionnaire $questionnaire)
     {
-        $this->authorize('update', $questionnaire);
 
         $questionnaire->title = $request->title;
         $questionnaire->body = $request->body;
