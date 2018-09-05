@@ -27,7 +27,7 @@ pipeline:
       - php artisan migrate
       - ./vendor/bin/phpunit
       - mkdir ../release
-      - tar -czf ../release/release.tar.gz --exclude node_modules --exclude vendor --exclude .env --exclude composer.lock .
+      - tar -czf ../release/release.tar.gz --exclude node_modules --exclude vendor --exclude .env --exclude *.lock .
 
   scp:
     image: appleboy/drone-scp
@@ -52,7 +52,7 @@ pipeline:
       - tar -xzf release.tar.gz
       - rm release.tar.gz
       - composer install --optimize-autoloader --no-dev
-      - php artisan migrate
+      # - php artisan migrate
       - sudo chmod -R 777 storage bootstrap/cache
       # - php artisan config:cache
       # - php artisan route:cache
