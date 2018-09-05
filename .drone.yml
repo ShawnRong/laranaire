@@ -22,6 +22,7 @@ pipeline:
     commands:
       - php -v
       - composer -v
+      - composer config -g repo.packagist composer https://packagist.phpcomposer.com
       - cp .env.example .env
       - composer install --prefer-dist
       - php artisan key:generate
@@ -53,6 +54,8 @@ pipeline:
       - tar -xzf release.tar.gz
       - rm release.tar.gz
       - composer install --optimize-autoloader --no-dev
+      - /var/www/deploy.sh
+      - php artisan key:generate
       # - php artisan migrate
       - sudo chmod -R 777 storage bootstrap/cache
       # - php artisan config:cache
